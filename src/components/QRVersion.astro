@@ -1,0 +1,159 @@
+---
+// src/components/QRVersion.astro
+export interface Props {
+  teachers: Array<{
+    id: string;
+    name: string;
+    image: string | null;
+    instrument: string;
+    isGuest?: boolean;
+    repertoire?: Array<{
+      piece: string;
+      students: string[];
+    }>;
+  }>;
+}
+
+const { teachers } = Astro.props;
+---
+
+<div class="qr-version bg-white min-h-screen p-8 relative">
+  <!-- Header con QR en la esquina -->
+  <div class="relative mb-8">
+    <!-- QR Code (placeholder - deberás reemplazar con tu QR real) -->
+    <div class="absolute top-0 right-0 w-24 h-24 bg-gray-200 border-2 border-purple-600 rounded-lg flex items-center justify-center">
+      <div class="text-xs text-center text-purple-600 font-bold">
+        QR<br>CODE
+      </div>
+    </div>
+    
+    <div class="pr-28">
+      <h1 class="text-4xl font-bold text-purple-800 mb-2">
+        Día del Clarinete
+      </h1>
+      <p class="text-lg text-gray-600">
+        Programa Musical • [Fecha] • [Lugar]
+      </p>
+    </div>
+  </div>
+
+  <!-- Grid de Profesores para Impresión -->
+  <div class="grid grid-cols-2 gap-6 mb-8">
+    {teachers.map((teacher) => (
+      <div class="border-2 border-purple-200 rounded-lg p-4 bg-gradient-to-br from-purple-50 to-blue-50">
+        <!-- Header del profesor -->
+        <div class="flex items-start gap-4 mb-4">
+          <!-- Imagen o avatar -->
+          <div class="flex-shrink-0">
+            {teacher.image ? (
+              <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-orange-400">
+                <img 
+                  src={teacher.image} 
+                  alt={teacher.name}
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            ) : (
+              <!-- Perfil de Incógnito -->
+              <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center">
+                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+            )}
+          </div>
+
+          <!-- Info del profesor -->
+          <div class="flex-grow">
+            <h3 class="text-xl font-bold text-purple-800">{teacher.name}</h3>
+            <p class="text-teal-600 font-medium">{teacher.instrument}</p>
+            {teacher.isGuest && (
+              <span class="inline-block bg-yellow-400 text-yellow-900 px-2 py-1 rounded text-xs font-bold mt-1">
+                INVITADO ESPECIAL
+              </span>
+            )}
+          </div>
+        </div>
+
+        <!-- Repertorio (solo para profesores) -->
+        {!teacher.isGuest && teacher.repertoire && (
+          <div class="space-y-3">
+            {teacher.repertoire.map((item, index) => (
+              <div class="bg-white rounded p-3 border border-purple-100">
+                <h4 class="font-semibold text-purple-700 text-sm mb-1">
+                  {index + 1}. {item.piece}
+                </h4>
+                <div class="flex flex-wrap gap-1">
+                  {item.students.map((student) => (
+                    <span class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs">
+                      {student}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <!-- Mensaje para invitado -->
+        {teacher.isGuest && (
+          <div class="text-center py-4">
+            <div class="text-2xl mb-2">🎭</div>
+            <p class="text-sm text-gray-600 italic">
+              Presentación sorpresa
+            </p>
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+
+  <!-- Información adicional del evento -->
+  <div class="border-t-2 border-purple-200 pt-6">
+    <div class="grid grid-cols-2 gap-8 text-sm">
+      <div>
+        <h4 class="font-bold text-purple-800 mb-2">Detalles del Evento</h4>
+        <ul class="space-y-1 text-gray-700">
+          <li><strong>Fecha:</strong> [Fecha del evento]</li>
+          <li><strong>Hora:</strong> [Hora de inicio]</li>
+          <li><strong>Duración:</strong> [Duración estimada]</li>
+          <li><strong>Entrada:</strong> Libre</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold text-purple-800 mb-2">Información</h4>
+        <p class="text-gray-700 text-xs leading-relaxed">
+          Escanea el código QR para acceder a la versión digital 
+          con información detallada de cada presentación y poder 
+          interactuar con el programa del evento.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer con decoración -->
+  <div class="absolute bottom-4 left-8 right-8 flex justify-between items-center text-purple-600">
+    <div class="flex space-x-2">
+      <span class="text-2xl">🎵</span>
+      <span class="text-2xl">🎶</span>
+      <span class="text-2xl">🎼</span>
+    </div>
+    <p class="text-sm font-medium">
+      Día del Clarinete 2024
+    </p>
+  </div>
+</div>
+
+<style>
+  @media print {
+    .qr-version {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    
+    * {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+  }
+</style>

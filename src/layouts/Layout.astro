@@ -1,0 +1,122 @@
+---
+// src/layouts/Layout.astro
+export interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="description"
+            content="Evento del Día del Clarinete - Celebrando la música y el talento"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>{title}</title>
+
+        <!-- Importar estilos de Tailwind -->
+        <link rel="stylesheet" href="/src/styles/global.css" />
+
+        <!-- Meta tags para redes sociales -->
+        <meta property="og:title" content={title} />
+        <meta
+            property="og:description"
+            content="Evento del Día del Clarinete - Celebrando la música y el talento"
+        />
+        <meta property="og:type" content="website" />
+
+        <!-- Estilos adicionales para impresión -->
+        <style>
+            @media print {
+                body {
+                    print-color-adjust: exact;
+                    -webkit-print-color-adjust: exact;
+                }
+
+                .no-print {
+                    display: none !important;
+                }
+
+                #mobile-version {
+                    display: none !important;
+                }
+
+                #qr-version {
+                    display: block !important;
+                }
+            }
+
+            /* Animaciones suaves */
+            .teacher-card {
+                transition: all 0.3s ease;
+            }
+
+            .teacher-card:hover {
+                box-shadow:
+                    0 10px 25px -5px rgba(0, 0, 0, 0.1),
+                    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+
+            /* Scrollbar personalizado */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: #9333ea;
+                border-radius: 4px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #7c3aed;
+            }
+        </style>
+    </head>
+
+    <body class="bg-gray-50 font-sans">
+        <slot />
+
+        <!-- Script global para manejo de modales -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Cerrar modales con Escape
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
+                        const openModals = document.querySelectorAll(
+                            '[id^="modal-"]:not(.hidden)'
+                        );
+                        openModals.forEach((modal) =>
+                            modal.classList.add("hidden")
+                        );
+                    }
+                });
+
+                // Smooth scroll para enlaces internos
+                const smoothScrollLinks =
+                    document.querySelectorAll('a[href^="#"]');
+                smoothScrollLinks.forEach((link) => {
+                    link.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute("href").substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,250 @@
+---
+// src/components/TeacherCard.astro
+export interface Props {
+  teacher: {
+    id: string;
+    name: string;
+    image: string | null;
+    instrument: string;
+    isGuest?: boolean;
+    repertoire?: Array<{
+      piece: string;
+      students: string[];
+    }>;
+  };
+}
+
+const { teacher } = Astro.props;
+---
+
+<div class="teacher-card bg-white overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-2xl group relative">
+  <!-- Fecha/Badge superior -->
+  <div class="absolute top-4 right-4 z-10">
+    <div class="text-right">
+      <div class="text-xs font-light text-black/70 leading-tight">
+        {teacher.isGuest ? 'INVITADO' : 'PROFESOR'}
+      </div>
+      <div class="text-xs font-light text-black/50">
+        DÍA DEL
+      </div>
+    </div>
+  </div>
+
+  <!-- Área principal con degradado y clarinete -->
+  <div class="relative h-80 overflow-hidden">
+    <!-- Degradado de fondo -->
+    <div class={`absolute inset-0 transition-all duration-500 group-hover:scale-105 ${
+      teacher.id === 'isaac-reyes' ? 'bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500' :
+      teacher.id === 'isaac-reyes-2' ? 'bg-gradient-to-br from-red-400 via-pink-500 to-red-600' :
+      teacher.id === 'professor-garcia' ? 'bg-gradient-to-br from-yellow-400 via-orange-400 to-yellow-500' :
+      'bg-gradient-to-br from-green-400 via-teal-500 to-green-600'
+    }`}></div>
+
+    <!-- Ilustración del clarinete estilizada -->
+    <div class="absolute inset-0 flex items-center justify-center">
+      {teacher.image ? (
+        <div class="relative">
+          <img 
+            src={teacher.image} 
+            alt={teacher.name}
+            class="w-32 h-32 object-cover rounded-full border-4 border-black/20 shadow-xl"
+          />
+          <!-- Clarinete estilizado superpuesto -->
+          <div class="absolute -bottom-4 -right-4 text-black/30 transform rotate-45 group-hover:rotate-12 transition-transform duration-500">
+            <svg class="w-16 h-16" viewBox="0 0 100 400" fill="currentColor">
+              <rect x="45" y="20" width="10" height="300" rx="5"/>
+              <circle cx="50" cy="30" r="8"/>
+              <rect x="42" y="50" width="16" height="4" rx="2"/>
+              <rect x="42" y="70" width="16" height="4" rx="2"/>
+              <rect x="42" y="90" width="16" height="4" rx="2"/>
+              <rect x="42" y="110" width="16" height="4" rx="2"/>
+            </svg>
+          </div>
+        </div>
+      ) : (
+        <!-- Clarinete grande para invitado incógnito -->
+        <div class="text-black/40 group-hover:scale-110 transition-transform duration-500">
+          <svg class="w-32 h-48" viewBox="0 0 100 400" fill="currentColor">
+            <rect x="45" y="40" width="10" height="280" rx="5"/>
+            <circle cx="50" cy="50" r="12"/>
+            <rect x="38" y="80" width="24" height="6" rx="3"/>
+            <rect x="38" y="110" width="24" height="6" rx="3"/>
+            <rect x="38" y="140" width="24" height="6" rx="3"/>
+            <rect x="38" y="170" width="24" height="6" rx="3"/>
+            <rect x="38" y="200" width="24" height="6" rx="3"/>
+            <circle cx="30" cy="95" r="3"/>
+            <circle cx="70" cy="95" r="3"/>
+            <circle cx="30" cy="125" r="3"/>
+            <circle cx="70" cy="125" r="3"/>
+          </svg>
+        </div>
+      )}
+    </div>
+
+    <!-- Notas musicales flotantes -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-8 left-6 text-black/20 group-hover:translate-y-2 transition-transform duration-700">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M18 3a1 1 0 0 0-1.196-.98l-10 2A1 1 0 0 0 6 5v6.114A4.369 4.369 0 0 0 5 11a4 4 0 1 0 4 4V5.114l8-1.6V13.114A4.369 4.369 0 0 0 16 13a4 4 0 1 0 4 4V3z"/>
+        </svg>
+      </div>
+      <div class="absolute bottom-8 right-8 text-black/20 group-hover:-translate-y-2 transition-transform duration-700 delay-100">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M18 3a1 1 0 0 0-1.196-.98l-10 2A1 1 0 0 0 6 5v6.114A4.369 4.369 0 0 0 5 11a4 4 0 1 0 4 4V5.114l8-1.6V13.114A4.369 4.369 0 0 0 16 13a4 4 0 1 0 4 4V3z"/>
+        </svg>
+      </div>
+      <div class="absolute top-16 right-12 text-black/15 group-hover:translate-x-2 transition-transform duration-700 delay-200">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M18 3a1 1 0 0 0-1.196-.98l-10 2A1 1 0 0 0 6 5v6.114A4.369 4.369 0 0 0 5 11a4 4 0 1 0 4 4V5.114l8-1.6V13.114A4.369 4.369 0 0 0 16 13a4 4 0 1 0 4 4V3z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Información inferior -->
+  <div class="p-6 bg-white">
+    <div class="mb-4">
+      <h2 class="text-3xl font-bold text-black mb-2 tracking-tight">
+        {teacher.name.toUpperCase()}
+      </h2>
+      <div class="w-12 h-0.5 bg-black mb-3"></div>
+      <p class="text-sm text-black/70 font-light tracking-wide">
+        {teacher.instrument.toUpperCase()}
+      </p>
+    </div>
+
+    {!teacher.isGuest && teacher.repertoire && (
+      <div class="text-xs text-black/60 font-light space-y-1">
+        {teacher.repertoire.slice(0, 2).map((item) => (
+          <div class="flex items-center space-x-2">
+            <div class="w-1 h-1 bg-black/30 rounded-full"></div>
+            <span>{item.piece}</span>
+          </div>
+        ))}
+        {teacher.repertoire.length > 2 && (
+          <div class="flex items-center space-x-2 font-medium text-black/80">
+            <div class="w-1 h-1 bg-black/50 rounded-full"></div>
+            <span>Y {teacher.repertoire.length - 2} piezas más</span>
+          </div>
+        )}
+      </div>
+    )}
+    
+    {teacher.isGuest && (
+      <p class="text-xs text-black/60 font-light italic tracking-wide">
+        PRESENTACIÓN ESPECIAL SORPRESA
+      </p>
+    )}
+  </div>
+</div>
+
+<!-- Modal minimalista -->
+<div id={`modal-${teacher.id}`} class="fixed inset-0 bg-black/90 hidden z-50 flex items-center justify-center p-4">
+  <div class="bg-white max-w-3xl w-full max-h-[85vh] overflow-y-auto relative">
+    <!-- Header del Modal -->
+    <div class="relative">
+      <!-- Fondo con degradado igual al de la card -->
+      <div class={`h-32 ${
+        teacher.id === 'isaac-reyes' ? 'bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500' :
+        teacher.id === 'isaac-reyes-2' ? 'bg-gradient-to-r from-red-400 via-pink-500 to-red-600' :
+        teacher.id === 'professor-garcia' ? 'bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500' :
+        'bg-gradient-to-r from-green-400 via-teal-500 to-green-600'
+      }`}></div>
+      
+      <!-- Botón cerrar -->
+      <button class="close-modal absolute top-4 right-4 w-8 h-8 bg-black/20 text-white hover:bg-black/40 transition-colors flex items-center justify-center">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+      
+      <!-- Info superpuesta -->
+      <div class="absolute bottom-0 left-0 right-0 bg-white p-6">
+        <h2 class="text-4xl font-bold text-black mb-2 tracking-tight">{teacher.name.toUpperCase()}</h2>
+        <div class="w-16 h-0.5 bg-black mb-2"></div>
+        <p class="text-black/70 font-light tracking-wide">{teacher.instrument.toUpperCase()}</p>
+      </div>
+    </div>
+
+    <!-- Contenido del modal -->
+    <div class="p-6 pt-8">
+      {!teacher.isGuest && teacher.repertoire && (
+        <div>
+          <h3 class="text-2xl font-bold text-black mb-6 tracking-tight">PROGRAMA MUSICAL</h3>
+          <div class="space-y-6">
+            {teacher.repertoire.map((item, index) => (
+              <div class="border-l-4 border-black pl-6">
+                <h4 class="text-xl font-bold text-black mb-3 tracking-tight">
+                  {String(index + 1).padStart(2, '0')}. {item.piece.toUpperCase()}
+                </h4>
+                <div>
+                  <p class="text-sm font-medium text-black/70 mb-3 tracking-wide">ESTUDIANTES:</p>
+                  <div class="grid grid-cols-2 gap-2">
+                    {item.students.map((student) => (
+                      <div class="bg-gray-50 px-3 py-2 text-sm text-black/80 font-light">
+                        {student}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {teacher.isGuest && (
+        <div class="text-center py-12">
+          <div class="mb-8">
+            <svg class="w-24 h-24 mx-auto text-black/20" viewBox="0 0 100 400" fill="currentColor">
+              <rect x="45" y="40" width="10" height="280" rx="5"/>
+              <circle cx="50" cy="50" r="12"/>
+              <rect x="38" y="80" width="24" height="6" rx="3"/>
+              <rect x="38" y="110" width="24" height="6" rx="3"/>
+              <rect x="38" y="140" width="24" height="6" rx="3"/>
+              <rect x="38" y="170" width="24" height="6" rx="3"/>
+              <rect x="38" y="200" width="24" height="6" rx="3"/>
+            </svg>
+          </div>
+          <h3 class="text-3xl font-bold text-black mb-4 tracking-tight">
+            PRESENTACIÓN SORPRESA
+          </h3>
+          <div class="w-20 h-0.5 bg-black mx-auto mb-6"></div>
+          <p class="text-black/70 font-light tracking-wide max-w-md mx-auto leading-relaxed">
+            Nuestro invitado especial nos deleitará con una presentación única.
+            ¡Ven y descubre quién es!
+          </p>
+        </div>
+      )}
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ teacherId: teacher.id }}>
+  document.addEventListener('DOMContentLoaded', function() {
+    const card = document.querySelector(`[data-teacher="${teacherId}"]`) || 
+                 document.querySelector('.teacher-card');
+    const modal = document.getElementById(`modal-${teacherId}`);
+    const closeBtn = modal?.querySelector('.close-modal');
+
+    card?.addEventListener('click', function() {
+      modal?.classList.remove('hidden');
+    });
+
+    closeBtn?.addEventListener('click', function() {
+      modal?.classList.add('hidden');
+    });
+
+    modal?.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+      }
+    });
+  });
+</script>
+
+<style>
+  .teacher-card {
+    data-teacher: attr(data-teacher);
+  }
+</style>
