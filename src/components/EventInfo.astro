@@ -1,0 +1,234 @@
+---
+/* src/components/EventInfo.astro */
+---
+
+<style>
+    @keyframes card-float-rotate {
+        0%,
+        100% {
+            transform: translateY(0px) rotate(0deg) scale(1);
+        }
+        25% {
+            transform: translateY(-3px) rotate(0.5deg) scale(1.01);
+        }
+        50% {
+            transform: translateY(-5px) rotate(0deg) scale(1.02);
+        }
+        75% {
+            transform: translateY(-3px) rotate(-0.5deg) scale(1.01);
+        }
+    }
+
+    @keyframes gentle-float {
+        0%,
+        100% {
+            transform: translateY(0px) rotate(3deg);
+        }
+        50% {
+            transform: translateY(-8px) rotate(3deg);
+        }
+    }
+
+    @keyframes subtle-bounce {
+        0%,
+        100% {
+            transform: translateY(0px) rotate(12deg);
+        }
+        50% {
+            transform: translateY(-6px) rotate(12deg);
+        }
+    }
+
+    @keyframes music-float {
+        0%,
+        100% {
+            transform: translateY(0px) rotate(-12deg);
+        }
+        50% {
+            transform: translateY(-10px) rotate(-12deg);
+        }
+    }
+
+    @keyframes pulse-soft {
+        0%,
+        100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.02);
+        }
+    }
+
+    @keyframes rotate-slow {
+        0% {
+            transform: rotate(-2deg);
+        }
+        50% {
+            transform: rotate(1deg);
+        }
+        100% {
+            transform: rotate(-2deg);
+        }
+    }
+
+    @keyframes title-dance {
+        0%,
+        100% {
+            transform: rotate(-1deg) translateY(0px);
+        }
+        33% {
+            transform: rotate(0.5deg) translateY(-2px);
+        }
+        66% {
+            transform: rotate(-0.5deg) translateY(-1px);
+        }
+    }
+
+    .animate-card-float-rotate {
+        animation: card-float-rotate 8s ease-in-out infinite;
+    }
+
+    .animate-gentle-float {
+        animation: gentle-float 4s ease-in-out infinite;
+    }
+
+    .animate-subtle-bounce {
+        animation: subtle-bounce 3s ease-in-out infinite;
+    }
+
+    .animate-music-float {
+        animation: music-float 5s ease-in-out infinite;
+    }
+
+    .animate-pulse-soft {
+        animation: pulse-soft 3s ease-in-out infinite;
+    }
+
+    .animate-rotate-slow {
+        animation: rotate-slow 8s ease-in-out infinite;
+    }
+
+    .animate-title-dance {
+        animation: title-dance 6s ease-in-out infinite;
+    }
+</style>
+
+<div
+    class="bg-gradient-to-br from-yellow-300 via-orange-300 to-red-400 p-8 rounded-lg neo-border neo-shadow transition-all duration-500 animate-card-float-rotate hover:scale-105 hover:rotate-1 hover:shadow-xl group"
+>
+    <!-- Header con fecha -->
+    <div class="flex justify-between items-start mb-6">
+        <div
+            class="bg-black text-white px-4 py-2 rounded-lg font-mono font-bold animate-rotate-slow hover:-translate-y-1 transition-all duration-300"
+        >
+            13<br />AGOSTO<br />2025
+        </div>
+        <div class="text-right animate-pulse-soft">
+            <p class="text-sm font-bold text-gray-800 mb-1">VIERNES</p>
+            <p class="text-xs font-medium text-gray-700">4:00 PM</p>
+        </div>
+    </div>
+
+    <!-- Título principal -->
+    <div class="mb-8">
+        <h1
+            class="text-3xl md:text-4xl font-black text-black leading-tight mb-2 animate-title-dance -rotate-1 hover:-translate-y-1 transition-all duration-300"
+        >
+            RECITAL DEL
+        </h1>
+        <h1
+            class="text-2xl md:text-3xl font-black text-black leading-tight mb-1 animate-title-dance rotate-1 hover:-translate-y-1 transition-all duration-300 [animation-delay:2s]"
+        >
+            DÍA DEL
+        </h1>
+        <h1
+            class="text-4xl md:text-5xl font-black text-black leading-tight animate-title-dance -rotate-1 hover:-translate-y-1 transition-all duration-300 [animation-delay:4s]"
+        >
+            CLARINETISTA
+        </h1>
+    </div>
+
+    <!-- QR Code -->
+    <div class="relative mb-8 flex justify-center">
+        <div
+            class="bg-white rounded-lg p-6 animate-gentle-float border-4 border-black hover:-translate-y-1 transition-all duration-300"
+        >
+            <div
+                class="w-24 h-24 bg-gray-200 border-2 border-dashed border-gray-400 rounded flex items-center justify-center animate-pulse-soft"
+            >
+                <span class="text-xs text-gray-500 text-center"
+                    >QR<br />CODE</span
+                >
+            </div>
+        </div>
+
+        <!-- Notas musicales -->
+        <div class="absolute top-0 right-0 animate-subtle-bounce">
+            <span class="text-2xl">♪</span>
+        </div>
+        <div class="absolute bottom-4 left-0 animate-music-float">
+            <span class="text-xl">♫</span>
+        </div>
+        <div
+            class="absolute top-1/2 right-8 animate-gentle-float opacity-60 [animation-delay:1.5s]"
+        >
+            <span class="text-lg">♬</span>
+        </div>
+    </div>
+
+    <!-- Información -->
+    <div
+        class="bg-white bg-opacity-90 p-4 rounded-lg neo-border mb-4 hover:-translate-y-1 transition-all duration-300 -rotate-1"
+    >
+        <p class="text-sm font-bold text-gray-800 leading-relaxed">
+            Celebramos el Día del Clarinetista con un recital especial. Una
+            velada dedicada a honrar este noble instrumento y sus intérpretes.
+        </p>
+    </div>
+
+    <!-- Datos -->
+    <div class="space-y-2">
+        <div
+            class="flex items-center space-x-2 hover:-translate-y-1 transition-all duration-300"
+        >
+            <span
+                class="bg-red-500 text-white px-2 py-1 rounded font-bold text-xs animate-pulse-soft rotate-2 [animation-delay:0.5s]"
+                >LUGAR</span
+            >
+            <span class="font-bold text-gray-800 text-sm"
+                >Auditorio Principal</span
+            >
+        </div>
+        <div
+            class="flex items-center space-x-2 hover:-translate-y-1 transition-all duration-300"
+        >
+            <span
+                class="bg-blue-500 text-white px-2 py-1 rounded font-bold text-xs animate-pulse-soft -rotate-2 [animation-delay:1s]"
+                >ENTRADA</span
+            >
+            <span class="font-bold text-gray-800 text-sm">Libre</span>
+        </div>
+        <div
+            class="flex items-center space-x-2 hover:-translate-y-1 transition-all duration-300"
+        >
+            <span
+                class="bg-purple-500 text-white px-2 py-1 rounded font-bold text-xs animate-pulse-soft rotate-2 [animation-delay:1.5s]"
+                >OCASIÓN</span
+            >
+            <span class="font-bold text-gray-800 text-sm"
+                >Día del Clarinetista</span
+            >
+        </div>
+        <div
+            class="flex items-center space-x-2 hover:-translate-y-1 transition-all duration-300"
+        >
+            <span
+                class="bg-green-500 text-white px-2 py-1 rounded font-bold text-xs animate-pulse-soft rotate-2 [animation-delay:1.5s]"
+                >ENCARGADO</span
+            >
+            <span class="font-bold text-gray-800 text-sm"
+                >Prof. Daniel Agudo</span
+            >
+        </div>
+    </div>
+</div>

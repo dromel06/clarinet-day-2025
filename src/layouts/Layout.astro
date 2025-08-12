@@ -1,5 +1,6 @@
 ---
 // src/layouts/Layout.astro
+import "../styles/global.css";
 export interface Props {
     title: string;
 }
@@ -13,110 +14,102 @@ const { title } = Astro.props;
         <meta charset="UTF-8" />
         <meta
             name="description"
-            content="Evento del Día del Clarinete - Celebrando la música y el talento"
+            content="Festival de Música - Presentación de estudiantes"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <title>{title}</title>
 
-        <!-- Importar estilos de Tailwind -->
-        <link rel="stylesheet" href="/src/styles/global.css" />
-
-        <!-- Meta tags para redes sociales -->
-        <meta property="og:title" content={title} />
-        <meta
-            property="og:description"
-            content="Evento del Día del Clarinete - Celebrando la música y el talento"
+        <!-- Google Fonts para tipografía neo-brutalista -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+            rel="stylesheet"
         />
-        <meta property="og:type" content="website" />
 
-        <!-- Estilos adicionales para impresión -->
         <style>
-            @media print {
-                body {
-                    print-color-adjust: exact;
-                    -webkit-print-color-adjust: exact;
+            body {
+                font-family:
+                    "Space Grotesk",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    sans-serif;
+            }
+
+            .font-mono {
+                font-family: "JetBrains Mono", monospace;
+            }
+
+            /* Animaciones personalizadas */
+            @keyframes float {
+                0%,
+                100% {
+                    transform: translateY(0px) rotate(0deg);
                 }
-
-                .no-print {
-                    display: none !important;
-                }
-
-                #mobile-version {
-                    display: none !important;
-                }
-
-                #qr-version {
-                    display: block !important;
+                50% {
+                    transform: translateY(-10px) rotate(2deg);
                 }
             }
 
-            /* Animaciones suaves */
-            .teacher-card {
-                transition: all 0.3s ease;
+            @keyframes bounce-subtle {
+                0%,
+                100% {
+                    transform: translateY(0px);
+                }
+                50% {
+                    transform: translateY(-5px);
+                }
             }
 
-            .teacher-card:hover {
-                box-shadow:
-                    0 10px 25px -5px rgba(0, 0, 0, 0.1),
-                    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            @keyframes shake {
+                0%,
+                100% {
+                    transform: translateX(0);
+                }
+                25% {
+                    transform: translateX(-2px);
+                }
+                75% {
+                    transform: translateX(2px);
+                }
             }
 
-            /* Scrollbar personalizado */
-            ::-webkit-scrollbar {
-                width: 8px;
+            .animate-float {
+                animation: float 6s ease-in-out infinite;
             }
 
-            ::-webkit-scrollbar-track {
-                background: #f1f1f1;
+            .animate-bounce-subtle {
+                animation: bounce-subtle 3s ease-in-out infinite;
             }
 
-            ::-webkit-scrollbar-thumb {
-                background: #9333ea;
-                border-radius: 4px;
+            .animate-shake {
+                animation: shake 0.5s ease-in-out;
             }
 
-            ::-webkit-scrollbar-thumb:hover {
-                background: #7c3aed;
+            /* Efectos neo-brutalistas */
+            .neo-shadow {
+                box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+            }
+
+            .neo-shadow-hover:hover {
+                box-shadow: 12px 12px 0px 0px rgba(0, 0, 0, 1);
+                transform: translate(-2px, -2px);
+            }
+
+            .neo-border {
+                border: 4px solid black;
+            }
+
+            /* Filtros para imágenes */
+            .brutal-filter {
+                filter: contrast(120%) saturate(130%) brightness(110%)
+                    hue-rotate(5deg);
+                mix-blend-mode: multiply;
             }
         </style>
     </head>
-
-    <body class="bg-gray-50 font-sans">
+    <body class="antialiased">
         <slot />
-
-        <!-- Script global para manejo de modales -->
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Cerrar modales con Escape
-                document.addEventListener("keydown", function (e) {
-                    if (e.key === "Escape") {
-                        const openModals = document.querySelectorAll(
-                            '[id^="modal-"]:not(.hidden)'
-                        );
-                        openModals.forEach((modal) =>
-                            modal.classList.add("hidden")
-                        );
-                    }
-                });
-
-                // Smooth scroll para enlaces internos
-                const smoothScrollLinks =
-                    document.querySelectorAll('a[href^="#"]');
-                smoothScrollLinks.forEach((link) => {
-                    link.addEventListener("click", function (e) {
-                        e.preventDefault();
-                        const targetId = this.getAttribute("href").substring(1);
-                        const targetElement = document.getElementById(targetId);
-                        if (targetElement) {
-                            targetElement.scrollIntoView({
-                                behavior: "smooth",
-                                block: "start",
-                            });
-                        }
-                    });
-                });
-            });
-        </script>
     </body>
 </html>

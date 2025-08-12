@@ -1,152 +1,232 @@
 ---
 // src/pages/index.astro
 import Layout from "../layouts/Layout.astro";
+import EventInfo from "../components/EventInfo.astro";
 import TeacherCard from "../components/TeacherCard.astro";
-import QRVersion from "../components/QRVersion.astro";
+import GuestCard from "../components/GuestCard.astro";
+import TeacherModal from "../components/TeacherModal.astro";
 
 const teachers = [
     {
-        id: "isaac-reyes",
+        id: "teacher-1",
+        name: "Carmen Small",
+        gender: "F",
+        image: "/images/teacher1.png", // Reemplaza con tu imagen
+        songs: [
+            {
+                title: "Variaciones sobre La Tierra de la Música",
+                move: "Evocacion, Dueto, Vals de Susana",
+                author: "José Grardo Castillo Zaldiívar",
+                students: [
+                    {
+                        name: "Susana Judith Castillo Rodriguez",
+                        instrument: "Clarinetes en Mib Y Sib",
+                    },
+                    {
+                        name: "José Esteban Castillo Rodriguez",
+                        instrument: "Piano (Prof. Abdiel Lombana)",
+                    },
+                    {
+                        name: "Susana Judith Castillo Rodriguez",
+                        instrument: "Clarinete Sib",
+                    },
+                ],
+                duration: "3:00",
+                extraInfo: "1972",
+            },
+            {
+                title: "Trio N°2 Op. 8",
+                move: "Allegro agitato",
+                author: "Jacques Bouffil",
+                students: [
+                    {
+                        name: "Ayling Arrocha",
+                        instrument: "",
+                    },
+                    {
+                        name: "Alexis Higuero",
+                        instrument: "",
+                    },
+                    {
+                        name: "Duncan Mena",
+                        instrument: "",
+                    },
+                ],
+                duration: "3:40",
+                extraInfo: "1783-1868",
+            },
+            {
+                title: "Suite Española N°1 Op. 47",
+                move: "Granada",
+                author: "Issac Albéniz",
+                ensemble: "Conjunto De Clarinetes Alfonso Draches 'Polly'",
+                students: [
+                    {
+                        name: "Ayling Arrocha",
+                        instrument: "",
+                    },
+                    {
+                        name: "Alexis Higuero",
+                        instrument: "",
+                    },
+                    {
+                        name: "Duncan Mena",
+                        instrument: "",
+                    },
+                    {
+                        name: "Johan Castillo",
+                        instrument: "",
+                    },
+                    {
+                        name: "Fabricio Espinosa",
+                        instrument: "",
+                    },
+                    {
+                        name: "Daniel Briceño",
+                        instrument: "",
+                    },
+                ],
+                duration: "4:30",
+                extraInfo: "1860-1909",
+            },
+        ],
+    },
+    {
+        id: "teacher-2",
         name: "Isaac Reyes",
-        image: "/images/isaac-reyes.jpg",
-        instrument: "Clarinete Soprano",
-        repertoire: [
+        gender: "F",
+        image: "/images/teacher2.png", // Reemplaza con tu imagen
+        songs: [
             {
-                piece: "Sonata en Sib Mayor",
-                students: ["María González", "Pedro López"],
+                title: "Estrellita",
+                author: "Popular",
+                students: [
+                    {
+                        name: "Dylan Chipsen",
+                        instrument: "",
+                    },
+                ],
+                duration: "1:00",
+                extraInfo: "",
             },
-            { piece: "Concierto Mozart K622", students: ["Ana Martínez"] },
             {
-                piece: "Capricho No. 1",
-                students: ["Luis Rodríguez", "Carmen Silva"],
+                title: "Theme From My New World Symphony (2nd Movement)",
+                author: "Antonín Dvořák's",
+                students: [
+                    {
+                        name: "Carolina Lescure",
+                        instrument: "",
+                    },
+                ],
+                duration: "3:38",
+                extraInfo: "1873-1904",
+            },
+            {
+                title: "Prelude",
+                author: "Krzysztof Penderecki",
+                students: [
+                    {
+                        name: "Hadid Cedeño",
+                        instrument: "",
+                    },
+                ],
+                duration: "3:14",
+                extraInfo: "1933-2020",
+            },
+            {
+                title: "La Bikina",
+                author: "Ruben Fuentes",
+                students: [
+                    {
+                        name: "Paola Cedeño",
+                        instrument: "",
+                    },
+                    {
+                        name: "Anaís Díaz",
+                        instrument: "",
+                    },
+                    {
+                        name: "Joshem Morales",
+                        instrument: "",
+                    },
+                    {
+                        name: "Marcel Rodríguez",
+                        instrument: "",
+                    },
+                    {
+                        name: "Didier Serrano",
+                        instrument: "",
+                    },
+                    {
+                        name: "Ivana Troetsch",
+                        instrument: "",
+                    },
+                    {
+                        name: "Katleen Soto",
+                        instrument: "",
+                    },
+                    {
+                        name: "Allyson Villareal",
+                        instrument: "",
+                    },
+                    {
+                        name: "Wilmer Arauz",
+                        instrument: "",
+                    },
+                    {
+                        name: "Diomedes Díaz",
+                        instrument: "",
+                    },
+                    {
+                        name: "Hadid Cedeño",
+                        instrument: "",
+                    },
+                ],
+                duration: "3:00",
+                extraInfo: "1926-2022",
             },
         ],
-    },
-    {
-        id: "isaac-reyes-2",
-        name: "Isaac de Yes",
-        image: "/images/isaac-yes.jpg",
-        instrument: "Clarinete Bajo",
-        repertoire: [
-            {
-                piece: "Beethoven Sinfonía 6",
-                students: ["Sofia Chen", "Miguel Torres"],
-            },
-            { piece: "Brahms Sonata Op. 120", students: ["Elena Vargas"] },
-            {
-                piece: "Debussy Primera Rapsodia",
-                students: ["Carlos Mendez", "Lucía Herrera"],
-            },
-        ],
-    },
-    {
-        id: "professor-garcia",
-        name: "Profesor García",
-        image: "/images/profesor-garcia.jpg",
-        instrument: "Clarinete Alto",
-        repertoire: [
-            {
-                piece: "Weber Concertino",
-                students: ["Andrea Morales", "Javier Castro"],
-            },
-            { piece: "Poulenc Sonata", students: ["Isabella Cruz"] },
-            {
-                piece: "Copland Concerto",
-                students: ["Roberto Kim", "Natalia Vega"],
-            },
-        ],
-    },
-    {
-        id: "invitado-especial",
-        name: "Invitado Especial",
-        image: null, // Esto generará el perfil de incógnito
-        instrument: "Solista Internacional",
-        isGuest: true,
     },
 ];
+
+const guest = {
+    name: "Hipólito Villareal",
+    title: "Profesor",
+    instrument: "Asistente de Clarinete Orquesta Sinfónica Nacional",
+    image: "/images/guest.png", // Reemplaza con tu imagen
+    songs: [
+        {
+            title: "Franz Taush Op 21 Duo 1",
+            duration: "Allegro",
+        },
+        {
+            title: "Franz Taush Op 21 Duo 3",
+            duration: "Allegro",
+        },
+    ],
+};
 ---
 
-<Layout title="Día del Clarinete">
-    <main class="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50">
-        <!-- Vista Normal/Móvil -->
-        <div id="mobile-version" class="block">
-            <!-- Header -->
-            <header class="bg-white shadow-lg border-b-4 border-purple-600">
-                <div class="container mx-auto px-4 py-6">
-                    <h1
-                        class="text-4xl font-bold text-purple-800 text-center mb-2"
-                    >
-                        Día del Clarinete
-                    </h1>
-                    <p class="text-center text-gray-600 text-lg">
-                        Celebrando la música y el talento
-                    </p>
-                </div>
-            </header>
+<Layout title="Festival de Música 2024">
+    <main class="min-h-screen bg-gray-900 p-4 md:p-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Grid de 4 tarjetas -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <!-- Tarjeta 1: Información del Evento -->
+                <EventInfo />
 
-            <!-- Grid de Profesores -->
-            <section class="container mx-auto px-4 py-8">
-                <div
-                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl mx-auto"
-                >
-                    {
-                        teachers.map((teacher) => (
-                            <TeacherCard teacher={teacher} />
-                        ))
-                    }
-                </div>
-            </section>
+                <!-- Tarjeta 2: Primer Profesor -->
+                <TeacherCard teacher={teachers[0]} />
 
-            <!-- Información del Evento -->
-            <section class="bg-white shadow-lg mx-4 rounded-lg p-6 mb-8">
-                <h2 class="text-2xl font-bold text-purple-800 mb-4">
-                    Información del Evento
-                </h2>
-                <div class="space-y-3 text-gray-700">
-                    <p><strong>Fecha:</strong> [Fecha del evento]</p>
-                    <p><strong>Hora:</strong> [Hora del evento]</p>
-                    <p><strong>Lugar:</strong> [Ubicación del evento]</p>
-                    <p><strong>Entrada:</strong> Libre</p>
-                </div>
-            </section>
+                <!-- Tarjeta 3: Segundo Profesor -->
+                <TeacherCard teacher={teachers[1]} />
+
+                <!-- Tarjeta 4: Invitado -->
+                <GuestCard guest={guest} />
+            </div>
         </div>
 
-        <!-- Vista para Imprimir con QR (Inicialmente oculta) -->
-        <div id="qr-version" class="hidden">
-            <QRVersion teachers={teachers} />
-        </div>
-
-        <!-- Botón para cambiar vista -->
-        <div class="fixed bottom-4 right-4 z-50">
-            <button
-                id="toggle-view"
-                class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full shadow-lg transition-colors"
-            >
-                Vista QR
-            </button>
-        </div>
+        <!-- Modal Component -->
+        <TeacherModal teachers={teachers} />
     </main>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const toggleBtn = document.getElementById("toggle-view");
-            const mobileVersion = document.getElementById("mobile-version");
-            const qrVersion = document.getElementById("qr-version");
-            let isQRView = false;
-
-            toggleBtn?.addEventListener("click", function () {
-                isQRView = !isQRView;
-
-                if (isQRView) {
-                    mobileVersion?.classList.add("hidden");
-                    qrVersion?.classList.remove("hidden");
-                    toggleBtn.textContent = "Vista Normal";
-                } else {
-                    mobileVersion?.classList.remove("hidden");
-                    qrVersion?.classList.add("hidden");
-                    toggleBtn.textContent = "Vista QR";
-                }
-            });
-        });
-    </script>
 </Layout>
