@@ -9,6 +9,7 @@ export interface Props {
         songs: Array<{
             title: string;
             duration: string;
+            partner: string;
         }>;
     };
 }
@@ -119,6 +120,9 @@ const { guest } = Astro.props;
                         <div class="flex justify-between items-center">
                             <span class="font-bold text-gray-800 text-sm">
                                 {song.title}
+                            </span>
+                            <span class="bg-yellow-500 text-white px-2 py-1 rounded-full font-bold text-xs transform">
+                                Duo: {song.partner}
                             </span>
                             <span class="bg-purple-500 text-white px-2 py-1 rounded-full font-bold text-xs transform rotate-3">
                                 {song.duration}
